@@ -1,26 +1,29 @@
 import React from 'react';
-import { meses } from '../helpers/helpers';
+import { months } from '../helpers/helpers';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMonth } from '../store/sliceDate';
 
 function SelectMonth() {
-  const currentIndexMonth = new Date().getMonth();
-  const [mes, setMes] = React.useState(meses[currentIndexMonth]);
+  const dispatch = useDispatch();
+  const { month } = useSelector((state) => state.getDate);
 
-  const handleChange = (event) => {
-    setMes(event.target.value);
+  const handleChange = ({ target }) => {
+    dispatch(getMonth(target.value));
   };
+
   return (
     <Box sx={{ minWidth: 120, color: 'white', borderColor: 'white' }}>
       <FormControl fullWidth>
         <InputLabel>Mês</InputLabel>
-        <Select value={mes} onChange={handleChange} size="small">
-          {meses.map((mes) => (
-            <MenuItem key={mes} value={mes}>
-              {mes}
+        <Select value={month} onChange={handleChange} size="small">
+          {months.map((month, index) => (
+            <MenuItem key={month} value={index}>
+              {month}
             </MenuItem>
           ))}
         </Select>
