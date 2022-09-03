@@ -17,7 +17,7 @@ function SelectMonth() {
   };
 
   return (
-    <Box sx={{ minWidth: 120, color: 'white', borderColor: 'white' }}>
+    <Box>
       <FormControl fullWidth>
         <InputLabel>Mês</InputLabel>
         <Select value={month} onChange={handleChange} size="small">

@@ -15,8 +15,8 @@ function SelectYear() {
     dispatch(getYear(target.value));
   };
   return (
-    <Box sx={{ minWidth: 120, color: 'white', borderColor: 'white' }}>
-      <FormControl fullWidth sx={{ color: 'white', borderColor: 'white' }}>
+    <Box>
+      <FormControl fullWidth>
         <InputLabel>Ano</InputLabel>
         <Select value={year} onChange={handleChange} size="small">
           {years.map((year) => (

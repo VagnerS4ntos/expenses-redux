@@ -26,3 +26,8 @@ header {
   display: flex;
   align-items: center;
 }
+
+.actions {
+  width: 100px;
+  text-align: center;
+}
