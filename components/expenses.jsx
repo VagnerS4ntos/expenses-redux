@@ -9,6 +9,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { auth } from '../firebase/firebaseConfig';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,6 +36,7 @@ function Expenses() {
   const { data, loading, error } = useSelector((state) => state.fetchExpenses);
   const { year, month } = useSelector((state) => state.getDate);
   const dispatch = useDispatch();
+  const userID = auth.currentUser?.uid;
 
   React.useEffect(() => {
     dispatch(fetchExpenses());
@@ -45,13 +47,15 @@ function Expenses() {
     const getCurrentData = data
       .filter(
         (item) =>
-          item.date.getFullYear() == year && item.date.getMonth() == month,
+          item.date.getFullYear() == year &&
+          item.date.getMonth() == month &&
+          item.user == userID,
       )
       .sort((a, b) => {
         return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
       });
     setCurrentDataOnScreen(getCurrentData);
-  }, [data, month, year]);
+  }, [data, month, userID, year]);
 
   if (loading) return <h2>Loading...</h2>;
 
@@ -70,7 +74,9 @@ function Expenses() {
             <TableRow sx={{ textTransform: 'uppercase' }}>
               <StyledTableCell>Nome</StyledTableCell>
               <StyledTableCell>Valor</StyledTableCell>
-              <StyledTableCell className="actions">Ações</StyledTableCell>
+              <StyledTableCell sx={{ width: '7rem', textAlign: 'center' }}>
+                Ações
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

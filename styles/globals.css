@@ -18,6 +18,7 @@ a {
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0.5rem 0;
 }
 
@@ -27,7 +28,3 @@ header {
   align-items: center;
 }
 
-.actions {
-  width: 100px;
-  text-align: center;
-}
