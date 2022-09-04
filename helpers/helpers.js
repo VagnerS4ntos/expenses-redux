@@ -20,12 +20,12 @@ export function getNewDate(year, indexMonth) {
 
 export function validateExpenseValue(value, type) {
   let validValue = 0;
-  if (type === 'saída' && value > 0) {
+  if (type === 'expense' && value > 0) {
     validValue = -1 * Number(value);
-  } else if (type === 'entrada' && value < 0) {
+  } else if (type === 'income' && value < 0) {
     validValue = -1 * Number(value);
   } else {
     validValue = value;
   }
-  return validValue;
+  return Number(validValue);
 }

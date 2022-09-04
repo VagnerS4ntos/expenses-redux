@@ -1,8 +1,8 @@
 import React from 'react';
+import DeleteExpense from './deleteExpense';
+import EditExpense from './editExpense';
 import { fetchExpenses } from '../store/sliceExpenses';
 import { useSelector, useDispatch } from 'react-redux';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -64,7 +64,6 @@ function Expenses() {
       {currentDataOnScreen.length ? (
         <Table
           sx={{
-            maxWidth: '50rem',
             margin: '2rem auto',
             border: '1px solid',
           }}
@@ -100,9 +99,15 @@ function Expenses() {
                     currency: 'BRL',
                   })}
                 </StyledTableCell>
-                <StyledTableCell sx={{ textAlign: 'center' }}>
-                  <DeleteIcon titleAccess="Deletar" color="error" />
-                  <EditIcon titleAccess="Editar" />
+                <StyledTableCell
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '10px',
+                  }}
+                >
+                  <DeleteExpense id={expense.id} />
+                  <EditExpense id={expense.id} />
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -116,3 +121,7 @@ function Expenses() {
 }
 
 export default Expenses;
+
+function handleClick({ target }) {
+  console.log(target);
+}

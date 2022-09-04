@@ -8,51 +8,43 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { v4 as uuid } from 'uuid';
-import { auth } from './../firebase/firebaseConfig';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
-import { getNewDate, validateExpenseValue } from '../helpers/helpers';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
+import EditIcon from '@mui/icons-material/Edit';
 
-function NewExpense() {
-  const [name, setName] = React.useState('');
-  const [type, setType] = React.useState('select');
-  const [value, setValue] = React.useState(0);
+function EditExpense({ id }) {
+  const [editName, setEditName] = React.useState('');
+  const [editType, setEditType] = React.useState('select');
+  const [editValue, setEditValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const { year, month } = useSelector((state) => state.getDate);
+  const { data } = useSelector((state) => state.fetchExpenses);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
+    const currentExpense = data.filter((item) => item.id == id);
+    const { name, type, value } = currentExpense[0];
+    setEditName(name);
+    setEditType(type);
+    setEditValue(value);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setName('');
-    setType('select');
-    setValue(0);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const id = uuid();
-    const newVaule = validateExpenseValue(value, type);
     try {
-      await setDoc(doc(db, 'allExpenses', id), {
-        name,
-        type,
-        value: newVaule,
-        user: auth.currentUser.uid,
-        id,
-        date: getNewDate(year, month),
+      await updateDoc(doc(db, 'allExpenses', id), {
+        name: editName,
+        type: editType,
+        value: editValue,
       });
       dispatch(fetchExpenses());
       setOpen(false);
-      setName('');
-      setType('select');
-      setValue(0);
     } catch (error) {
       console.log(error);
     }
@@ -60,16 +52,13 @@ function NewExpense() {
 
   return (
     <section>
-      <Button
+      <EditIcon
         variant="contained"
-        color="success"
-        sx={{ fontWeight: 'bold', color: 'white' }}
+        sx={{ fontWeight: 'bold', cursor: 'pointer' }}
         onClick={handleClickOpen}
-      >
-        Nova despesa
-      </Button>
+      />
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Nova despesa</DialogTitle>
+        <DialogTitle>Editar despesa</DialogTitle>
         <DialogContent>
           <Box component="form" onSubmit={handleSubmit} sx={{ marginTop: 1 }}>
             <TextField
@@ -77,8 +66,8 @@ function NewExpense() {
               fullWidth
               label="Nome"
               size="small"
-              value={name}
-              onChange={({ target }) => setName(target.value)}
+              value={editName}
+              onChange={({ target }) => setEditName(target.value)}
             />
             <Box>
               <Select
@@ -86,8 +75,8 @@ function NewExpense() {
                 size="small"
                 fullWidth
                 sx={{ margin: '1rem 0' }}
-                value={type}
-                onChange={({ target }) => setType(target.value)}
+                value={editType}
+                onChange={({ target }) => setEditType(target.value)}
               >
                 <MenuItem value={'select'} selected disabled>
                   Selecione o tipo
@@ -103,8 +92,8 @@ function NewExpense() {
               label="Valor"
               size="small"
               type="number"
-              value={value}
-              onChange={({ target }) => setValue(target.value)}
+              value={editValue}
+              onChange={({ target }) => setEditValue(target.value)}
             />
             <DialogActions
               sx={{
@@ -127,7 +116,7 @@ function NewExpense() {
                 onClick={handleClose}
                 autoFocus
                 variant="contained"
-                color="secondary"
+                color="warning"
                 sx={{ color: 'white' }}
               >
                 Cancelar
@@ -140,4 +129,4 @@ function NewExpense() {
   );
 }
 
-export default NewExpense;
+export default EditExpense;

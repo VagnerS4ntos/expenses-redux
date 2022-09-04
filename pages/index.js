@@ -13,6 +13,7 @@ export default function Home() {
       <Header />
       <main>
         <h1>Expenses</h1>
+        <NewExpense />
         <section>
           <Box sx={{ maxWidth: '50rem', margin: '2rem auto' }}>
             <Grid container spacing={2}>
@@ -25,7 +26,6 @@ export default function Home() {
             </Grid>
           </Box>
         </section>
-        <NewExpense />
         <Expenses />
       </main>
     </>
