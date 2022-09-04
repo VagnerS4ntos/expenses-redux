@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import Expenses from './../components/expenses';
 import Header from '../components/header';
+import NewExpense from '../components/newExpense';
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
       <main>
         <h1>Expenses</h1>
         <section>
-          <Box sx={{ maxWidth: '50rem', margin: '0 auto' }}>
+          <Box sx={{ maxWidth: '50rem', margin: '2rem auto' }}>
             <Grid container spacing={2}>
               <Grid xs={12} sm={6}>
                 <SelectMonth />
@@ -24,6 +25,7 @@ export default function Home() {
             </Grid>
           </Box>
         </section>
+        <NewExpense />
         <Expenses />
       </main>
     </>
