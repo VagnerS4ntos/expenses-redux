@@ -29,3 +29,10 @@ export function validateExpenseValue(value, type) {
   }
   return Number(validValue);
 }
+
+export function convertToMoney(value) {
+  return Number(value).toLocaleString('pt-br', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+}

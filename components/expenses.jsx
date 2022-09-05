@@ -11,6 +11,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { auth } from '../firebase/firebaseConfig';
+import { convertToMoney } from '../helpers/helpers';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -68,6 +69,7 @@ function Expenses() {
           sx={{
             margin: '2rem auto',
             border: '1px solid',
+            width: '100%',
           }}
           size="small"
         >
@@ -81,7 +83,7 @@ function Expenses() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dataOnScreen.map((expense) => (
+            {dataOnScreen.map((expense, index) => (
               <StyledTableRow key={expense.id}>
                 <StyledTableCell
                   component="th"
@@ -96,10 +98,7 @@ function Expenses() {
                     fontWeight: 'bold',
                   }}
                 >
-                  {Number(expense.value).toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  })}
+                  {convertToMoney(expense.value)}
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{

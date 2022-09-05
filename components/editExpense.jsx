@@ -22,12 +22,12 @@ function EditExpense({ id }) {
   const [editType, setEditType] = React.useState('select');
   const [editValue, setEditValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const { data } = useSelector((state) => state.fetchExpenses);
+  const { dataOnScreen } = useSelector((state) => state.fetchExpenses);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
-    const currentExpense = data.filter((item) => item.id == id);
+    const currentExpense = dataOnScreen.filter((item) => item.id == id);
     const { name, type, value } = currentExpense[0];
     setEditName(name);
     setEditType(type);
