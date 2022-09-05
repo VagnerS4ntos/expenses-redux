@@ -11,6 +11,7 @@ import { setCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { auth } from '../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 export default function SignUp() {
   const [name, setName] = React.useState('');
@@ -33,6 +34,7 @@ export default function SignUp() {
       router.push('/');
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 

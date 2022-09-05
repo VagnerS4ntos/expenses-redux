@@ -13,6 +13,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { setCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
@@ -32,6 +33,7 @@ export default function Login() {
       router.push('/');
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 

@@ -9,6 +9,7 @@ import { db } from '../firebase/firebaseConfig';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
 
 function DeleteExpense({ id }) {
   const [open, setOpen] = React.useState(false);
@@ -27,8 +28,10 @@ function DeleteExpense({ id }) {
       await deleteDoc(doc(db, 'allExpenses', id));
       dispatch(fetchExpenses());
       setOpen(false);
+      toast.success('Despesa excluída com sucesso');
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   }
 

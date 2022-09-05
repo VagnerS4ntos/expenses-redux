@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from './../firebase/firebaseConfig';
+import { toast } from 'react-toastify';
 
 function Reset() {
   const [email, setEmail] = React.useState('');
@@ -23,13 +24,13 @@ function Reset() {
     event.preventDefault();
     try {
       if (validateEmail(email)) {
-        // await sendPasswordResetEmail(auth, email);
+        await sendPasswordResetEmail(auth, email);
         setResetSuccessful(true);
       } else {
-        console.log('E-mail inválido');
+        toast.error('E-mail inválido');
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   }
 

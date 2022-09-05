@@ -4,10 +4,10 @@ import Head from 'next/head';
 import Container from '@mui/material/Container';
 import { Provider } from 'react-redux';
 import store from '../store/configureStore';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ToastContainer } from 'react-toastify';
 
 function MyApp({ Component, pageProps }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }) {
           </Head>
           <Component {...pageProps} />
         </Container>
+        <ToastContainer />
       </ThemeProvider>
     </Provider>
   );

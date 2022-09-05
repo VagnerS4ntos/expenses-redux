@@ -13,6 +13,8 @@ import { db } from '../firebase/firebaseConfig';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
 import EditIcon from '@mui/icons-material/Edit';
+import { validateExpenseValue } from '../helpers/helpers';
+import { toast } from 'react-toastify';
 
 function EditExpense({ id }) {
   const [editName, setEditName] = React.useState('');
@@ -41,12 +43,14 @@ function EditExpense({ id }) {
       await updateDoc(doc(db, 'allExpenses', id), {
         name: editName,
         type: editType,
-        value: editValue,
+        value: validateExpenseValue(editValue, editType),
       });
       dispatch(fetchExpenses());
+      toast.success('Despesa atualizada com sucesso');
       setOpen(false);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      toast.error(error.message);
     }
   }
 

@@ -15,6 +15,7 @@ import { db } from '../firebase/firebaseConfig';
 import { getNewDate, validateExpenseValue } from '../helpers/helpers';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
+import { toast } from 'react-toastify';
 
 function NewExpense() {
   const [name, setName] = React.useState('');
@@ -40,21 +41,31 @@ function NewExpense() {
     const id = uuid();
     const newVaule = validateExpenseValue(value, type);
     try {
-      await setDoc(doc(db, 'allExpenses', id), {
-        name,
-        type,
-        value: newVaule,
-        user: auth.currentUser.uid,
-        id,
-        date: getNewDate(year, month),
-      });
-      dispatch(fetchExpenses());
-      setOpen(false);
-      setName('');
-      setType('select');
-      setValue(0);
+      if (name == '') {
+        toast.error('Nome inválido');
+      } else if (type == 'select') {
+        toast.error('Selecione um tipo de despesa');
+      } else if (value == 0) {
+        toast.error('O valor deve ser diferente de zero');
+      } else {
+        await setDoc(doc(db, 'allExpenses', id), {
+          name,
+          type,
+          value: newVaule,
+          user: auth.currentUser.uid,
+          id,
+          date: getNewDate(year, month),
+        });
+        dispatch(fetchExpenses());
+        toast.success('Despesa criada com sucesso');
+        setOpen(false);
+        setName('');
+        setType('select');
+        setValue(0);
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      toast.error(error.message);
     }
   }
 
