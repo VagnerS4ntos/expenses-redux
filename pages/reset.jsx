@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from './../firebase/firebaseConfig';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Reset() {
   const [email, setEmail] = React.useState('');

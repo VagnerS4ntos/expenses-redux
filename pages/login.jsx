@@ -14,6 +14,7 @@ import { setCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');

@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DeleteExpense({ id }) {
   const [open, setOpen] = React.useState(false);

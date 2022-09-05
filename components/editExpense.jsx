@@ -15,6 +15,7 @@ import { fetchExpenses } from '../store/sliceExpenses';
 import EditIcon from '@mui/icons-material/Edit';
 import { validateExpenseValue } from '../helpers/helpers';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EditExpense({ id }) {
   const [editName, setEditName] = React.useState('');

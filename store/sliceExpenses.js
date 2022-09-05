@@ -6,7 +6,8 @@ export const slice = createSlice({
   name: 'getExpenses',
   initialState: {
     loading: false,
-    data: [],
+    allData: [],
+    dataOnScreen: [],
     error: null,
   },
   reducers: {
@@ -15,18 +16,22 @@ export const slice = createSlice({
     },
     fetchSuccess(state, action) {
       state.loading = false;
-      state.data = action.payload;
+      state.allData = action.payload;
       state.error = null;
     },
     fetchError(state, action) {
       state.loading = false;
-      state.data = null;
+      state.allData = [];
       state.error = action.payload;
+    },
+    getDataToRender(state, action) {
+      state.dataOnScreen = action.payload;
     },
   },
 });
 
-const { fetchStarted, fetchSuccess, fetchError } = slice.actions;
+export const { fetchStarted, fetchSuccess, fetchError, getDataToRender } =
+  slice.actions;
 
 export const fetchExpenses = () => async (dispatch) => {
   try {

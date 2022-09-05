@@ -6,6 +6,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Expenses from './../components/expenses';
 import Header from '../components/header';
 import NewExpense from '../components/newExpense';
+import Balance from '../components/balance';
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
             </Grid>
           </Box>
         </section>
+        <Balance />
         <Expenses />
       </main>
     </>

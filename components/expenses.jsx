@@ -3,6 +3,7 @@ import DeleteExpense from './deleteExpense';
 import EditExpense from './editExpense';
 import { fetchExpenses } from '../store/sliceExpenses';
 import { useSelector, useDispatch } from 'react-redux';
+import { getDataToRender } from '../store/sliceExpenses';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,8 +33,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Expenses() {
-  const [currentDataOnScreen, setCurrentDataOnScreen] = React.useState([]);
-  const { data, loading, error } = useSelector((state) => state.fetchExpenses);
+  const { allData, loading, error, dataOnScreen } = useSelector(
+    (state) => state.fetchExpenses,
+  );
   const { year, month } = useSelector((state) => state.getDate);
   const dispatch = useDispatch();
   const userID = auth.currentUser?.uid;
@@ -44,7 +46,7 @@ function Expenses() {
   }, []);
 
   React.useEffect(() => {
-    const getCurrentData = data
+    const getCurrentData = allData
       .filter(
         (item) =>
           item.date.getFullYear() == year &&
@@ -54,14 +56,14 @@ function Expenses() {
       .sort((a, b) => {
         return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
       });
-    setCurrentDataOnScreen(getCurrentData);
-  }, [data, month, userID, year]);
+    dispatch(getDataToRender(getCurrentData));
+  }, [allData, dispatch, month, userID, year]);
 
   if (loading) return <h2>Loading...</h2>;
-
+  if (error) return <h2>{error}</h2>;
   return (
     <>
-      {currentDataOnScreen.length ? (
+      {dataOnScreen.length ? (
         <Table
           sx={{
             margin: '2rem auto',
@@ -79,7 +81,7 @@ function Expenses() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentDataOnScreen.map((expense) => (
+            {dataOnScreen.map((expense) => (
               <StyledTableRow key={expense.id}>
                 <StyledTableCell
                   component="th"

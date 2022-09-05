@@ -16,6 +16,7 @@ import { getNewDate, validateExpenseValue } from '../helpers/helpers';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../store/sliceExpenses';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function NewExpense() {
   const [name, setName] = React.useState('');

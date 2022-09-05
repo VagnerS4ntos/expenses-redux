@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { getCookie } from 'cookies-next';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Box from '@mui/material/Box';
-
 import { auth } from '../firebase/firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';

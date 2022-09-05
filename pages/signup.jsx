@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { auth } from '../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
   const [name, setName] = React.useState('');
