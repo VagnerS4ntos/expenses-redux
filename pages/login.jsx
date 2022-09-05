@@ -86,12 +86,18 @@ export default function Login() {
           <Grid container>
             <Grid item xs>
               <Link href="/reset" variant="body2">
-                Forgot password?
+                <a>
+                  Forgot password? <br /> Reset{' '}
+                </a>
               </Link>
             </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+                <a>
+                  {"Don't have an account? "}
+                  <br />
+                  Sign Up
+                </a>
               </Link>
             </Grid>
           </Grid>

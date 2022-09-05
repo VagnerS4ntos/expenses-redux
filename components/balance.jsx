@@ -45,20 +45,18 @@ function Balance() {
     <>
       {!!dataOnScreen.length && (
         <Box component="section" sx={containerStyles}>
-          <div>
-            <p>
-              Saídas:{' '}
-              <Box component="span" sx={{ color: 'red' }}>
-                {convertToMoney(-expenses)}
-              </Box>{' '}
-            </p>
-            <p>
-              Entradas:{' '}
-              <Box component="span" sx={{ color: '#16A34A' }}>
-                {convertToMoney(incomes)}
-              </Box>
-            </p>
-          </div>
+          <p>
+            Entradas:{' '}
+            <Box component="span" sx={{ color: '#16A34A' }}>
+              {convertToMoney(incomes)}
+            </Box>
+          </p>
+          <p>
+            Saídas:{' '}
+            <Box component="span" sx={{ color: 'red' }}>
+              {convertToMoney(-expenses)}
+            </Box>{' '}
+          </p>
 
           <p>
             Saldo:{' '}
