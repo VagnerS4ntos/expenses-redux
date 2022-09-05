@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { sendPasswordResetEmail } from 'firebase/auth';
+import { validateEmail } from '../helpers/helpers';
 import { auth } from './../firebase/firebaseConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,14 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function Reset() {
   const [email, setEmail] = React.useState('');
   const [resetSuccessful, setResetSuccessful] = React.useState(false);
-
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      );
-  };
 
   async function handleSubmit(event) {
     event.preventDefault();

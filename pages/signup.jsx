@@ -11,28 +11,41 @@ import { setCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { auth } from '../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { validateEmail } from '../helpers/helpers';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [confirmEmail, setConfirmEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
-        displayName: name,
-      });
-      setCookies('userID', auth.currentUser.uid, {
-        maxAge: 3600, // Will expire after 1hr (value is in number of sec.)
-      });
-      setCookies('userName', auth.currentUser.displayName, {
-        maxAge: 3600,
-      });
-      router.push('/');
+      if (name == '') {
+        toast.error('Nome inválido');
+      } else if (!validateEmail(email)) {
+        toast.error('E-mail inválido');
+      } else if (email != confirmEmail) {
+        toast.error('E-mails diferentes');
+      } else if (password != confirmPassword) {
+        toast.error('Senhas diferente');
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+        });
+        setCookies('userID', auth.currentUser.uid, {
+          maxAge: 3600, // Will expire after 1hr (value is in number of sec.)
+        });
+        setCookies('userName', auth.currentUser.displayName, {
+          maxAge: 3600,
+        });
+        router.push('/');
+      }
     } catch (error) {
       console.log(error.message);
       toast.error(error.message);
@@ -85,6 +98,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 label="Confirm e-mail"
+                value={confirmEmail}
+                onChange={({ target }) => setConfirmEmail(target.value)}
               />
             </Grid>
           </Grid>
@@ -108,6 +123,8 @@ export default function SignUp() {
                 fullWidth
                 label="Confirm password"
                 type="password"
+                value={confirmPassword}
+                onChange={({ target }) => setConfirmPassword(target.value)}
               />
             </Grid>
           </Grid>

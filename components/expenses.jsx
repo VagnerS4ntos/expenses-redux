@@ -69,7 +69,6 @@ function Expenses() {
           sx={{
             margin: '2rem auto',
             border: '1px solid',
-            width: '100%',
           }}
           size="small"
         >
