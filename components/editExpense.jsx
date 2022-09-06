@@ -56,7 +56,7 @@ function EditExpense({ id }) {
   }
 
   return (
-    <section>
+    <>
       <EditIcon
         variant="contained"
         sx={{ fontWeight: 'bold', cursor: 'pointer' }}
@@ -130,7 +130,7 @@ function EditExpense({ id }) {
           </Box>
         </DialogContent>
       </Dialog>
-    </section>
+    </>
   );
 }
 

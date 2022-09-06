@@ -5,6 +5,7 @@ import { fetchExpenses } from '../store/sliceExpenses';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDataToRender } from '../store/sliceExpenses';
 import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -82,7 +83,7 @@ function Expenses() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dataOnScreen.map((expense, index) => (
+            {dataOnScreen.map((expense) => (
               <StyledTableRow key={expense.id}>
                 <StyledTableCell
                   component="th"
@@ -99,15 +100,17 @@ function Expenses() {
                 >
                   {convertToMoney(expense.value)}
                 </StyledTableCell>
-                <StyledTableCell
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '10px',
-                  }}
-                >
-                  <DeleteExpense id={expense.id} />
-                  <EditExpense id={expense.id} />
+                <StyledTableCell>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '10px',
+                    }}
+                  >
+                    <DeleteExpense id={expense.id} />
+                    <EditExpense id={expense.id} />
+                  </Box>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

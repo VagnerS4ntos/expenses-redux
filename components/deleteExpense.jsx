@@ -37,7 +37,7 @@ function DeleteExpense({ id }) {
   }
 
   return (
-    <section>
+    <>
       <DeleteIcon
         titleAccess="Deletar"
         color="error"
@@ -77,7 +77,7 @@ function DeleteExpense({ id }) {
           </DialogActions>
         </DialogContent>
       </Dialog>
-    </section>
+    </>
   );
 }
 
