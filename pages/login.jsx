@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import { auth } from '../firebase/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
@@ -25,11 +25,11 @@ export default function Login() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setCookies('userID', auth.currentUser.uid, {
-        maxAge: 3600, // Will expire after 1hr (value is in number of sec.)
+      setCookie('userID', auth.currentUser.uid, {
+        maxAge: 3600,
       });
-      setCookies('userName', auth.currentUser.displayName, {
-        maxAge: 3600, // Will expire after 1hr (value is in number of sec.)
+      setCookie('userName', auth.currentUser.displayName, {
+        maxAge: 3600,
       });
       router.push('/');
     } catch (error) {

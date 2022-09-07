@@ -2,8 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { convertToMoney } from '../helpers/helpers';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function Balance() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { dataOnScreen } = useSelector((state) => state.fetchExpenses);
   const [expenses, setExpenses] = React.useState(0);
   const [incomes, setIncomes] = React.useState(0);
@@ -31,7 +33,7 @@ function Balance() {
   }, [dataOnScreen]);
 
   const containerStyles = {
-    backgroundColor: '#333',
+    backgroundColor: `${prefersDarkMode ? '#333' : '#eee'}`,
     padding: '5px 16px',
     display: 'flex',
     justifyContent: 'space-between',

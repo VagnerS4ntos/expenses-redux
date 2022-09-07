@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import Link from 'next/link';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { auth } from '../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -38,10 +38,10 @@ export default function SignUp() {
         await updateProfile(auth.currentUser, {
           displayName: name,
         });
-        setCookies('userID', auth.currentUser.uid, {
-          maxAge: 3600, // Will expire after 1hr (value is in number of sec.)
+        setCookie('userID', auth.currentUser.uid, {
+          maxAge: 3600,
         });
-        setCookies('userName', auth.currentUser.displayName, {
+        setCookie('userName', auth.currentUser.displayName, {
           maxAge: 3600,
         });
         router.push('/');

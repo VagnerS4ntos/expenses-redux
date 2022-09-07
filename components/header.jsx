@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { auth } from '../firebase/firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { removeCookies } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 
 function Header() {
   const [userName, setUserName] = React.useState('');
@@ -20,8 +20,8 @@ function Header() {
   async function logOut() {
     try {
       await signOut(auth);
-      removeCookies('userID');
-      removeCookies('userName');
+      deleteCookie('userID');
+      deleteCookie('userName');
       router.push('/');
     } catch (error) {
       console.log(error.message);
