@@ -7,30 +7,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 function Balance() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { dataOnScreen } = useSelector((state) => state.fetchExpenses);
-  const [expenses, setExpenses] = React.useState(0);
-  const [incomes, setIncomes] = React.useState(0);
-  const [balance, setBalance] = React.useState(0);
 
-  React.useEffect(() => {
-    const allExpenses = Number(
-      dataOnScreen
-        .filter((item) => item.type == 'expense')
-        .reduce(function (expense, acc) {
-          return expense + Number(acc.value);
-        }, 0),
-    );
-    setExpenses(allExpenses);
+  const allExpenses = Number(
+    dataOnScreen
+      .filter((item) => item.type == 'expense')
+      .reduce(function (expense, acc) {
+        return expense + Number(acc.value);
+      }, 0),
+  );
 
-    const allIncomes = Number(
-      dataOnScreen
-        .filter((item) => item.type == 'income')
-        .reduce(function (expense, acc) {
-          return expense + Number(acc.value);
-        }, 0),
-    );
-    setIncomes(allIncomes);
-    setBalance(allExpenses + allIncomes);
-  }, [dataOnScreen]);
+  const allIncomes = Number(
+    dataOnScreen
+      .filter((item) => item.type == 'income')
+      .reduce(function (expense, acc) {
+        return expense + Number(acc.value);
+      }, 0),
+  );
+
+  const total = allIncomes + allExpenses;
 
   const containerStyles = {
     backgroundColor: `${prefersDarkMode ? '#333' : '#eee'}`,
@@ -50,13 +44,13 @@ function Balance() {
           <p>
             Entradas:{' '}
             <Box component="span" sx={{ color: '#16A34A' }}>
-              {convertToMoney(incomes)}
+              {convertToMoney(allIncomes)}
             </Box>
           </p>
           <p>
             Saídas:{' '}
             <Box component="span" sx={{ color: 'red' }}>
-              {convertToMoney(-expenses)}
+              {convertToMoney(allExpenses)}
             </Box>{' '}
           </p>
 
@@ -64,9 +58,9 @@ function Balance() {
             Saldo:{' '}
             <Box
               component="span"
-              sx={{ color: `${balance < 0 ? 'red' : '#16A34A'}` }}
+              sx={{ color: `${total < 0 ? 'red' : '#16A34A'}` }}
             >
-              {convertToMoney(balance)}
+              {convertToMoney(total)}
             </Box>
           </p>
         </Box>
