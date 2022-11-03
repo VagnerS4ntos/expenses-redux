@@ -1,9 +1,9 @@
 import React from 'react';
 import SelectMonth from '../components/selectMonth';
-import SelectYear from './../components/selectYear';
+import SelectYear from '../components/selectYear';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import Expenses from './../components/expenses';
+import Expenses from '../components/expenses';
 import Header from '../components/header';
 import NewExpense from '../components/newExpense';
 import Balance from '../components/balance';
@@ -35,7 +35,7 @@ export default function Home() {
 }
 
 export const getServerSideProps = async (context) => {
-  const userID = context.req.cookies['userID'];
+  const userID = context.req.cookies['userIDCookie'];
 
   if (!userID) {
     return {

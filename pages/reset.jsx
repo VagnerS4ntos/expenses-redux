@@ -87,7 +87,7 @@ function Reset() {
 export default Reset;
 
 export const getServerSideProps = async (context) => {
-  const userID = context.req.cookies['userID'];
+  const userID = context.req.cookies['userIDCookie'];
 
   if (userID) {
     return {

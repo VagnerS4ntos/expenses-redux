@@ -38,7 +38,7 @@ export default function SignUp() {
         await updateProfile(auth.currentUser, {
           displayName: name,
         });
-        setCookie('userID', auth.currentUser.uid, {
+        setCookie('userIDCookie', auth.currentUser.uid, {
           maxAge: 3600,
         });
         setCookie('userName', auth.currentUser.displayName, {
@@ -151,7 +151,7 @@ export default function SignUp() {
 }
 
 export const getServerSideProps = async (context) => {
-  const userID = context.req.cookies['userID'];
+  const userID = context.req.cookies['userIDCookie'];
 
   if (userID) {
     return {

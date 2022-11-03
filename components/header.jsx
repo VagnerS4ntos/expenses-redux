@@ -20,7 +20,7 @@ function Header() {
   async function logOut() {
     try {
       await signOut(auth);
-      deleteCookie('userID');
+      deleteCookie('userIDCookie');
       deleteCookie('userName');
       router.push('/');
     } catch (error) {

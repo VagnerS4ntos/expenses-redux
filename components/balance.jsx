@@ -35,6 +35,7 @@ function Balance() {
     fontSize: '1.1rem',
     borderRadius: '5px',
     fontWeight: 'bold',
+    // fontSize: '1rem',
   };
 
   return (
@@ -42,20 +43,20 @@ function Balance() {
       {!!dataOnScreen.length && (
         <Box component="section" sx={containerStyles}>
           <p>
-            Entradas:{' '}
+            Entradas: <br />
             <Box component="span" sx={{ color: '#16A34A' }}>
               {convertToMoney(allIncomes)}
             </Box>
           </p>
           <p>
-            Saídas:{' '}
+            Saídas: <br />
             <Box component="span" sx={{ color: 'red' }}>
-              {convertToMoney(allExpenses)}
+              {convertToMoney(-allExpenses)}
             </Box>{' '}
           </p>
 
           <p>
-            Saldo:{' '}
+            Saldo: <br />
             <Box
               component="span"
               sx={{ color: `${total < 0 ? 'red' : '#16A34A'}` }}

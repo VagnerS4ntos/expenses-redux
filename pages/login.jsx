@@ -25,7 +25,7 @@ export default function Login() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setCookie('userID', auth.currentUser.uid, {
+      setCookie('userIDCookie', auth.currentUser.uid, {
         maxAge: 3600,
       });
       setCookie('userName', auth.currentUser.displayName, {
@@ -108,7 +108,7 @@ export default function Login() {
 }
 
 export const getServerSideProps = async (context) => {
-  const userID = context.req.cookies['userID'];
+  const userID = context.req.cookies['userIDCookie'];
 
   if (userID) {
     return {
